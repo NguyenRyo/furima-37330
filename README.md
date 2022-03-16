@@ -68,15 +68,15 @@ Things you may want to cover:
 
 
 # Buyers table
-| Column        | Type      | Options                        |
-| ------------- | --------- | ------------------------------ |
-| postalcode    | string    | null: false                    |
-| prefecture_id | integer   | null: false                    |
-| city          | string    | null: false                    |
-| address       | string    | null: false                    |
-| building      | string    |                                |
-| tel           | string    | null: false                    | 
-| purchase      | reference | null: false, foreign_key: true |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postalcode    | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| city          | string     | null: false                    |
+| address       | string     | null: false                    |
+| building      | string     |                                |
+| tel           | string     | null: false                    | 
+| purchase      | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :purchase
