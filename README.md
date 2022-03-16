@@ -27,10 +27,11 @@ Things you may want to cover:
 | ------------------ | ------ | ------------------------- |
 | nickname           | string | null: false               |
 | email              | string | null: false, unique: true |
-| password           | string | null: false               |
 | encrypted_password | string | null: false               |
-| name_kanji         | string | null: false               |
-| name_furigana      | string | null: false               | 
+| firstname_kanji    | string | null: false               |
+| lastname_kanji     | string | null: false               |
+| firstname_furigana | string | null: false               | 
+| lastname_furigana  | string | null: false               | 
 | birthday           | date   | null: false               |
 
 ### Association
@@ -38,45 +39,44 @@ Things you may want to cover:
 - has_many :purchases
 
 # items table
-| Column            | Type        | Options                        |
-| ----------------- | ----------- | ------------------------------ |
-| title             | string      | null: false                    |
-| description       | text        | null: false                    |
-| category          | string      | null: false                    |
-| condition         | string      | null: false                    |
-| deliver_fee_cover | string      | null: false                    | 
-| deliver_area      | string      | null: false                    |
-| deliver_date      | date        | null: false                    |
-| price             | integer     | null: false                    |
-| user_id           | references  | null: false, foreign_key: true |
+| Column               | Type       | Options                        |
+| -------------------- | ---------- | ------------------------------ |
+| title                | string     | null: false                    |
+| description          | text       | null: false                    |
+| category_id          | integer    | null: false                    |
+| condition_id         | integer    | null: false                    |
+| deliver_fee_cover_id | integer    | null: false                    | 
+| prefecture_id        | integer    | null: false                    |
+| deliver_date_id      | integer    | null: false                    |
+| price                | integer    | null: false                    |
+| user                 | references | null: false, foreign_key: true |
 
 ### Association
 - has_one    :purchase
 - belongs_to :user
 
 # purchases table
-| Column           | Type        | Options                        |
-| ---------------- | ----------- | ------------------------------ |
-| user_id_item     | references  | null: false, foreign_key: true |
-| user_id_purchase | references  | null: false, foreign_key: true |
-| item_id          | references  | null: false, foreign_key: true |
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| item   | references | null: false, foreign_key: true |
+| user   | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :item
 - belongs_to :user
-- belongs_to :deliver
+- has_one    :buyer
 
 
-# Deliveries table
-| Column      | Type      | Options                        |
-| ----------- | --------- | ------------------------------ |
-| postalcode  | string    | null: false                    |
-| prefecture  | string    | null: false                    |
-| city        | string    | null: false                    |
-| address     | string    | null: false                    |
-| building    | string    |                                |
-| tel         | string    | null: false                    | 
-| purchase_id | reference | null: false, foreign_key: true |
+# Buyers table
+| Column        | Type      | Options                        |
+| ------------- | --------- | ------------------------------ |
+| postalcode    | string    | null: false                    |
+| prefecture_id | integer   | null: false                    |
+| city          | string    | null: false                    |
+| address       | string    | null: false                    |
+| building      | string    |                                |
+| tel           | string    | null: false                    | 
+| purchase      | reference | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :purchase
