@@ -115,6 +115,18 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include "Lastname furigana can't be blank"
       end
 
+      it ' 姓カナは、全角カタカナでなければ登録できない' do
+        @user.firstname_furigana = 'ｱ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Firstname furigana require full-width Furigana character"
+      end
+
+      it ' 名カナは、全角カタカナでなければ登録できない' do
+        @user.lastname_furigana = 'ｱ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Lastname furigana require full-width Furigana character"
+      end
+
       it '生年月日emailが空では登録できない' do
         @user.birthday = ''
         @user.valid?
