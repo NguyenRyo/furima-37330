@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  VALID_NAME_REGEX = /\A[ぁ-んァ-ン一-龥]/.freeze #氏名は全角でないと登録できない
+  VALID_NAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze #氏名は全角でないと登録できない
   validates :nickname          , presence: true
   validates :firstname_kanji   , presence: true, format: {with: VALID_NAME_REGEX, message: 'require full-width character'}
   validates :lastname_kanji    , presence: true, format: {with: VALID_NAME_REGEX, message: 'require full-width character'}
