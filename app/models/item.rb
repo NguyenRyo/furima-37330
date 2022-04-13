@@ -2,6 +2,9 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category, :condition, :deliver_fee_cover, :prefecture, :deliver_date
 
+  has_one_attached :image
+
+
   #空の投稿を保存できないようにする
   validates :title, :description, presence: true
 
@@ -22,4 +25,6 @@ class Item < ApplicationRecord
   # def profit
   #   (self.price * 0.9).round
   # end
+
+  
 end
