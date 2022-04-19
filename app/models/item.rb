@@ -1,6 +1,10 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category, :condition, :deliver_fee_cover, :prefecture, :deliver_date
+  belongs_to :category
+  belongs_to :condition
+  belongs_to :deliver_fee_cover
+  belongs_to :prefecture
+  belongs_to :deliver_date
   belongs_to :user
 
   has_one_attached :image
@@ -23,14 +27,4 @@ class Item < ApplicationRecord
   validates :price,                 numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 , message: "can't be blank"}
   validates :price,                 format: { with: VALID_price_REGEX}
 
-
-
-  # def tax_price
-  #   (self.price * 0.1).round
-  # end
-
-  # def profit
-  #   (self.price * 0.9).round
-  # end
-  
 end
