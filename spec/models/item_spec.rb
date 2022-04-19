@@ -31,31 +31,31 @@ RSpec.describe Item, type: :model do
       end
 
       it 'category_idが空では登録できない' do
-        @item.category_id = ''  
+        @item.category_id = 1  
         @item.valid?
         expect(@item.errors.full_messages).to include "Category can't be blank"
       end
 
       it 'condition_idが空では登録できない' do
-        @item.condition_id = ''
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include "Condition can't be blank"
       end
 
       it 'deliver_fee_cover_idが空では登録できない' do
-        @item.deliver_fee_cover_id = ''
+        @item.deliver_fee_cover_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include "Deliver fee cover can't be blank"
       end
 
       it 'prefecture_idが空では登録できない' do
-        @item.prefecture_id = ''
+        @item.prefecture_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include "Prefecture can't be blank"
       end
 
       it 'deliver_date_idが空では登録できない' do
-        @item.deliver_date_id = ''
+        @item.deliver_date_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include "Deliver date can't be blank"
       end
@@ -82,6 +82,13 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include "Price can't be blank"
       end
+      
+      it 'userが紐付いていなければ出品できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
+      end
+
     end
   end
 end
