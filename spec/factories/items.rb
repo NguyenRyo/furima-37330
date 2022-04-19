@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :item do
     title                {Faker::Lorem.sentence}
-    image                {Faker::Lorem.sentence}
     description          {Faker::Lorem.sentence}
     category_id          {rand(2..11)}
     condition_id         {rand(2..7)}
