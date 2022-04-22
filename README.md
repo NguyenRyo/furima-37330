@@ -67,7 +67,7 @@ Things you may want to cover:
 - has_one    :buyer
 
 
-# Buyers table
+# buyers table
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | postalcode    | string     | null: false                    |
