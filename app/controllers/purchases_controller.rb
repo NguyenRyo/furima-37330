@@ -2,10 +2,11 @@ class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: :index
 
   def index
+    @purchase_buyer = PurchaseBuyer.new
+    @item = Item.find(params[:item_id])
   end 
 
   def new
-    @purchase_buyer = PurchaseBuyer.new
   end
   
   def create
@@ -21,7 +22,6 @@ class PurchasesController < ApplicationController
   private
 
   def purchase_params
-    binding.pry
-    params.require(:purchase_buyer).permit(:postalcode, :prefecture_id, :city, :address, :building, :tel).merge(item_id: item_id, user_id: current_user.id)
+    params.require(:purchase_buyer).permit(:postalcode, :prefecture_id, :city, :address, :building, :tel).merge(item_id: params[:item_id], user_id: current_user.id)
   end
 end
