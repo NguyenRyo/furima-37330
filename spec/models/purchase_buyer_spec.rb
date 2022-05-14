@@ -13,13 +13,15 @@ RSpec.describe PurchaseBuyer, type: :model do
           expect(@purchase_buyer).to be_valid
         end
         
-        it "建物名が空でも購入できる"
+        it "建物名が空でも購入できる" do
+          @purchase_buyer.building = ''
+          expect(@purchase_buyer).to be_valid
         end
       end
       
       context '購入できない場合' do
         it 'カード番号が空では購入できない' do
-          @user.nickname = ''
+          @purchase_buyer.card = ''
           @user.valid?
           expect(@user.errors.full_messages).to include "Nickname can't be blank"
         end
