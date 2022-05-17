@@ -12,12 +12,6 @@ class PurchasesController < ApplicationController
     @item = Item.find(params[:item_id])
     if @purchase_buyer.valid?
       pay_item
-      Payjp.api_key = "sk_test_03ba0f8bdf953688f84be0c6"
-      Payjp::Charge.create(
-        amount: @item.price,  # 商品の値段
-        card: purchase_params[:token],    # カードトークン
-        currency: 'jpy'                 # 通貨の種類（日本円）
-      )
       @purchase_buyer.save
       redirect_to root_path
     else
@@ -40,12 +34,12 @@ class PurchasesController < ApplicationController
   end
   
   def pay_item
-    Payjp.api_key = "sk_test_03ba0f8bdf953688f84be0c6"
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price,  # 商品の値段
       card: purchase_params[:token],    # カードトークン
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
   end
-  
+
 end

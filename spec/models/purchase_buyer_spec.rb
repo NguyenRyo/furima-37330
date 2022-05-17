@@ -4,7 +4,7 @@ RSpec.describe PurchaseBuyer, type: :model do
   describe "購入情報の保存" do
     before do
       user = FactoryBot.create(:user)
-      @purchase_buyer = FActoryBot.build(:purchase_buyer, user_id: user.id)
+      @purchase_buyer = FactoryBot.build(:purchase_buyer, user_id: user.id)
     end
 
     describe '商品購入' do
@@ -23,83 +23,67 @@ RSpec.describe PurchaseBuyer, type: :model do
         it "tokenが空では登録できないこと" do
           @purchase_buyer.token = nil
           @purchase_buyer.valid?
-          expect(@purchase_buyer.errors.full_messages).to include("Tok                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    en can't be blank")
+          expect(@purchase_buyer.errors.full_messages).to include("Token can't be blank")
         end
   
         it "郵便番号が空では購入できない" do
-          @user.password = ''
-          @user.valid?
-          expect(@user.errors.full_messages).to include("Password can't be blank")
+          @purchase_buyer.postalcode = ''
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Postalcode is invalid. Enter it as follows (e.g. 123-4567)")
         end
   
         it '郵便番号がハイフン無しでは購入できない' do
-          @user.password = '12345'
-          @user.password_confirmation = '12345'
-          @user.valid?
-          expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+          @purchase_buyer.postalcode = '0000000'
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Postalcode is invalid. Enter it as follows (e.g. 123-4567)")
         end
   
         it '郵便番号が８桁では購入できない' do
-          @user.password = 'abcdef'
-          @user.password_confirmation = 'abcdef'
-          @user.valid?
-          expect(@user.errors.full_messages).to include("Password include both letters and numbers")
+          @purchase_buyer.postalcode = '000-00000'
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Postalcode is invalid. Enter it as follows (e.g. 123-4567)")
         end
 
         it '郵便番号が６桁では購入できない' do
-          @user.password = 'abcdef'
-          @user.password_confirmation = 'abcdef'
-          @user.valid?
-          expect(@user.errors.full_messages).to include("Password include both letters and numbers")
+          @purchase_buyer.postalcode = '00-0000'
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Postalcode is invalid. Enter it as follows (e.g. 123-4567)")
         end
 
         it '郵便番号が全角では購入できない' do
-          @user.password = 'abcdef'
-          @user.password_confirmation = 'abcdef'
-          @user.valid?
-          expect(@user.errors.full_messages).to include("Password include both letters and numbers")
+          @purchase_buyer.postalcode = '０００−００００'
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Postalcode is invalid. Enter it as follows (e.g. 123-4567)")
         end
 
         it '都道府県が空では購入できない' do
-          @user.password = '123456'
-          @user.password_confirmation = '123456'
-          @user.valid?
-          expect(@user.errors.full_messages).to include("Password include both letters and numbers")
+          @purchase_buyer.prefecture_id = '0'
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Prefecture can't be blank")
         end
   
         it '市町村区が空では購入できない' do
-          @user.password = 'aaaaaａ'
-          @user.password_confirmation = 'aaaaaａ'
-          @user.valid?
-          expect(@user.errors.full_messages).to include("Password include both letters and numbers")
+          @purchase_buyer.city = ''
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("City can't be blank")
         end
   
         it '番地が空では購入できない' do
-          @user.password = '123456'
-          @user.password_confirmation = '1234567'
-          @user.valid?
-          expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+          @purchase_buyer.address = ''
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Address can't be blank")
         end
 
         it '電話番号が空では購入できない' do
-          @user.password = '123456'
-          @user.password_confirmation = '1234567'
-          @user.valid?
-          expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
-        end
-
-        it '電話番号１２桁では購入できない' do
-          @user.password = '123456'
-          @user.password_confirmation = '1234567'
-          @user.valid?
-          expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+          @purchase_buyer.tel = ''
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Tel can't be blank")
         end
 
         it '電話番号が全角では購入できない' do
-          @user.password = '123456'
-          @user.password_confirmation = '1234567'
-          @user.valid?
-          expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+          @purchase_buyer.tel = '００００００００００'
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Tel Phone number is invalid. Input only number with half-width")
         end
       end
     end
