@@ -1,6 +1,6 @@
 class PurchaseBuyer
   include ActiveModel::Model
-  attr_accessor :item_id, :user_id, :postalcode, :prefecture_id, :city, :address, :building, :tel
+  attr_accessor :item_id, :user_id, :postalcode, :prefecture_id, :city, :address, :building, :tel, :token
 
   with_options presence: true do 
     validates :item_id
@@ -10,6 +10,7 @@ class PurchaseBuyer
     validates :city        
     validates :address     
     validates :tel,         numericality: {with: /\A[0-9]{10,11}\z/, message: "Phone number is invalid. Input only number with half-width"}
+    validates :token
   end
 
   def save
