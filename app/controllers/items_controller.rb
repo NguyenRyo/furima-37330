@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only:[:new, :create, :edit, :destroy]
     before_action :item_find, only:[:show, :edit, :update, :destroy]
     before_action :move_to_index, only: [:edit, :destroy]
+    before_action :move_to_index_soldout, only: [:edit]
 
   def index
     @items = Item.all
@@ -53,7 +54,12 @@ class ItemsController < ApplicationController
 
   def item_find
     @item = Item.find(params[:id])
- 
+  end
+
+  def move_to_index_soldout
+    if @item.purchase.present?
+      redirect_to action: :index
+    end
   end
 
 end
