@@ -7,6 +7,8 @@ FactoryBot.define do
     building { '東京ハイツ' }
     token {"tok_abcdefghijk00000000000000000"}
     tel { 0000000000 }
-    item_id { 1 }
+    # association :user
+    # association :item
+
   end
 end

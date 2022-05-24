@@ -4,7 +4,10 @@ RSpec.describe PurchaseBuyer, type: :model do
   describe "購入情報の保存" do
     before do
       user = FactoryBot.create(:user)
-      @purchase_buyer = FactoryBot.build(:purchase_buyer, user_id: user.id)
+      item = FactoryBot.create(:item)
+      @purchase_buyer = FactoryBot.build(:purchase_buyer, user_id: user.id, item_id: item.id)
+      sleep 0.1 # 0.1秒待機
+
     end
 
     describe '商品購入' do
