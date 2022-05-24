@@ -5,6 +5,7 @@ RSpec.describe PurchaseBuyer, type: :model do
     before do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
+      sleep 0.1 # 0.1秒待機
       @purchase_buyer = FactoryBot.build(:purchase_buyer, user_id: user.id, item_id: item.id)
       sleep 0.1 # 0.1秒待機
 
@@ -88,6 +89,19 @@ RSpec.describe PurchaseBuyer, type: :model do
           @purchase_buyer.valid?
           expect(@purchase_buyer.errors.full_messages).to include("Tel Phone number is invalid. Input only number with half-width")
         end
+
+        it 'userが紐付いていなければ購入できない' do
+          @purchase_buyer.user_id = nil
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("User can't be blank")
+        end
+
+        it 'itemが紐付いていなければ購入できない' do
+          @purchase_buyer.item_id = nil
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Item can't be blank")
+        end
+
       end
     end
   end
