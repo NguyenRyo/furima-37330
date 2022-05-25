@@ -84,6 +84,18 @@ RSpec.describe PurchaseBuyer, type: :model do
           expect(@purchase_buyer.errors.full_messages).to include("Tel can't be blank")
         end
 
+        it '電話番号が９桁以下購入できない' do
+          @purchase_buyer.tel = '000000000'
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Tel Phone number is invalid. Input only number with half-width")
+        end
+
+        it '電話番号が１２桁以上では購入できない' do
+          @purchase_buyer.tel = '000000000000'
+          @purchase_buyer.valid?
+          expect(@purchase_buyer.errors.full_messages).to include("Tel Phone number is invalid. Input only number with half-width")
+        end
+
         it '電話番号が全角では購入できない' do
           @purchase_buyer.tel = '００００００００００'
           @purchase_buyer.valid?
