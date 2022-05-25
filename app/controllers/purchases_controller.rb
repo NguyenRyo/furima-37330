@@ -14,7 +14,6 @@ class PurchasesController < ApplicationController
       @purchase_buyer.save
       redirect_to root_path
     else
-      find_item_by_item_id
       render :index
     end
   end
