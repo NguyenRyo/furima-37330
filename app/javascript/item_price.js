@@ -1,5 +1,4 @@
 window.addEventListener('load', () => {
-
   const itemPrice = document.getElementById("item-price");
 
   itemPrice.addEventListener("input", () => {
@@ -11,7 +10,9 @@ window.addEventListener('load', () => {
     const profitArea = document.getElementById("profit");
     taxArea.innerHTML = tax_fee;
     profitArea.innerHTML = profit;
-  });
+    
 
-});
+  })
+
+})
 
