@@ -9,6 +9,7 @@ class PurchasesController < ApplicationController
   
   def create
     @purchase_buyer = PurchaseBuyer.new(purchase_params)
+    # binding.pry
     if @purchase_buyer.valid?
       pay_item
       @purchase_buyer.save
